@@ -60,7 +60,8 @@ class Account {
         $date = date("Y-m-d");
 
         // Prepared statement para prevenir SQL Injection
-        $stmt = mysqli_prepare($this->con, "INSERT INTO users VALUES ('', ?, ?, ?, ?, ?, ?, ?)");
+        // Não incluir id (AUTO_INCREMENT) na query
+        $stmt = mysqli_prepare($this->con, "INSERT INTO users (username, firstName, lastName, email, password, signUpDate, profilePic) VALUES (?, ?, ?, ?, ?, ?, ?)");
         mysqli_stmt_bind_param($stmt, "sssssss", $un, $fn, $ln, $em, $hashedPw, $date, $profilePic);
         $result = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
