@@ -14,15 +14,29 @@ class User {
     }
 
     public function getFirstAndLastName() {
-        $query = mysqli_query($this->con, "SELECT concat(firstName, ' ', lastName) as 'name' FROM users WHERE username='$this->username'");
-        $row = mysqli_fetch_array($query);
-        return $row['name'];
+        // Prepared statement para prevenir SQL Injection
+        $stmt = mysqli_prepare($this->con, "SELECT concat(firstName, ' ', lastName) as 'name' FROM users WHERE username = ?");
+        mysqli_stmt_bind_param($stmt, "s", $this->username);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_array($result);
+        mysqli_stmt_close($stmt);
+
+        // Escape HTML para prevenir XSS
+        return htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
     }
 
     public function getEmail() {
-        $query = mysqli_query($this->con, "SELECT email FROM users WHERE username='$this->username'");
-        $row = mysqli_fetch_array($query);
-        return $row['email'];
+        // Prepared statement para prevenir SQL Injection
+        $stmt = mysqli_prepare($this->con, "SELECT email FROM users WHERE username = ?");
+        mysqli_stmt_bind_param($stmt, "s", $this->username);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_array($result);
+        mysqli_stmt_close($stmt);
+
+        // Escape HTML para prevenir XSS
+        return htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');
     }
 
 }

@@ -6,20 +6,26 @@ class Album {
 
     public function __construct($con, $id) {
         $this->con = $con;
-        $this->id = $id;
+        $this->id = intval($id); // Sanitizar ID como inteiro
 
-        $query = mysqli_query($this->con, "SELECT * FROM albums WHERE id='$this->id'");
-        $album = mysqli_fetch_array($query);
+        // Prepared statement para prevenir SQL Injection
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM albums WHERE id = ?");
+        mysqli_stmt_bind_param($stmt, "i", $this->id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $album = mysqli_fetch_array($result);
+        mysqli_stmt_close($stmt);
 
         $this->title = $album['title'];
-        $this->artistId = $album['artist'];
+        $this->artistId = intval($album['artist']);
         $this->genre = $album['genre'];
         $this->artworkPath = $album['artworkPath'];
-    
+
     }
 
     public function getTitle() {
-        return $this->title;
+        // Escape HTML para prevenir XSS
+        return htmlspecialchars($this->title, ENT_QUOTES, 'UTF-8');
     }
 
     public function getArtist() {
@@ -27,7 +33,8 @@ class Album {
     }
 
     public function getGenre() {
-        return $this->genre;
+        // Escape HTML para prevenir XSS
+        return htmlspecialchars($this->genre, ENT_QUOTES, 'UTF-8');
     }
 
     public function getArtworkPath() {
@@ -35,19 +42,31 @@ class Album {
     }
 
     public function getNumberOfSongs() {
-        $query = mysqli_query($this->con, "SELECT id FROM songs WHERE album='$this->id'");
-        return mysqli_num_rows($query);
+        // Prepared statement para prevenir SQL Injection
+        $stmt = mysqli_prepare($this->con, "SELECT id FROM songs WHERE album = ?");
+        mysqli_stmt_bind_param($stmt, "i", $this->id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+        $count = mysqli_stmt_num_rows($stmt);
+        mysqli_stmt_close($stmt);
+
+        return $count;
     }
 
     public function getSongIds() {
-        $query = mysqli_query($this->con, "SELECT id FROM songs WHERE album='$this->id' ORDER BY albumOrder ASC");
+        // Prepared statement para prevenir SQL Injection
+        $stmt = mysqli_prepare($this->con, "SELECT id FROM songs WHERE album = ? ORDER BY albumOrder ASC");
+        mysqli_stmt_bind_param($stmt, "i", $this->id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
 
         $array = array();
 
-        while ($row = mysqli_fetch_array($query)) {
-            array_push($array, $row['id']);
+        while ($row = mysqli_fetch_array($result)) {
+            array_push($array, intval($row['id']));
         }
 
+        mysqli_stmt_close($stmt);
         return $array;
     }
 

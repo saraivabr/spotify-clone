@@ -7,22 +7,34 @@ if (!isset($_POST['username'])) {
 }
 
 if (isset($_POST['email']) && ($_POST['email']) != "") {
-    
-    $username = $_POST['username'];
-    $email = $_POST['email'];
+
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "Email is invalid";
         exit();
     }
 
-    $emailCheck = mysqli_query($con, "SELECT email from users WHERE email='$email' AND username != '$username'");
-    if (mysqli_num_rows($emailCheck) > 0) {
+    // Prepared statement para verificar email duplicado
+    $stmt = mysqli_prepare($con, "SELECT email FROM users WHERE email = ? AND username != ?");
+    mysqli_stmt_bind_param($stmt, "ss", $email, $username);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+
+    if (mysqli_stmt_num_rows($stmt) > 0) {
+        mysqli_stmt_close($stmt);
         echo "Email is already in use";
         exit();
-    } 
+    }
+    mysqli_stmt_close($stmt);
 
-    $updateQuery = mysqli_query($con, "UPDATE users SET email='$email' WHERE username='$username'");
+    // Prepared statement para atualizar email
+    $stmt = mysqli_prepare($con, "UPDATE users SET email = ? WHERE username = ?");
+    mysqli_stmt_bind_param($stmt, "ss", $email, $username);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
     echo "Update successful";
 
 }

@@ -1,1 +1,85 @@
-music
+# ==========================================
+# SPOTIFY CLONE - Git Ignore
+# ==========================================
+
+# Arquivos de música (não versionar por serem pesados)
+music/
+*.mp3
+*.mpeg
+*.wav
+*.flac
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.production
+.env.staging
+
+# Configurações locais
+includes/config.local.php
+
+# Uploads de usuários
+uploads/
+assets/images/profile-pics/*
+!assets/images/profile-pics/.gitkeep
+!assets/images/profile-pics/head_emerald.png
+
+# Logs
+*.log
+logs/
+error.log
+access.log
+
+# Backup de banco de dados
+*.sql.backup
+*.sql.bak
+backup/
+dumps/
+
+# Sistema Operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Composer (se usar no futuro)
+/vendor/
+composer.lock
+
+# NPM/Node (se usar no futuro)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Cache
+cache/
+tmp/
+temp/
+*.cache
+
+# Arquivos de sessão PHP
+sessions/
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.old
+*.bak
+*.backup

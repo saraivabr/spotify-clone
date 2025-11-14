@@ -1,3 +1,11 @@
+/* ==========================================
+   SPOTIFY CLONE - Estilos Principais
+   ========================================== */
+
+/* ==========================================
+   RESET E CONFIGURAÇÕES GLOBAIS
+   ========================================== */
+
 html, body {
     padding: 0;
     margin: 0;
@@ -13,41 +21,45 @@ html, body {
 body {
     background-color: #181818;
     font-size: 14px;
-    min-width: 720px; 
+    min-width: 720px; /* Largura mínima para evitar quebra no layout */
 }
 
+/* ==========================================
+   BARRA DE REPRODUÇÃO - Parte Inferior
+   ========================================== */
 
-/* Index page Bottom STYLES ------------------------------------------------------*/
-
+/* Container fixo da barra de reprodução */
 #nowPlayingBarContainer {
     width: 100%;
     background-color: #282828;
     bottom: 0;
     position: fixed;
     min-width: 620px;
+    z-index: 100; /* Garantir que fique sobre outros elementos */
 }
 
+/* Barra de reprodução principal */
 #nowPlayingBar {
     display: flex;
     height: 90px;
     padding: 16px;
     box-sizing: border-box;
-
 }
 
+/* Áreas laterais (esquerda e direita) */
 #nowPlayingLeft,
 #nowPlayingRight {
     width: 30%;
     min-width: 180px;
 }
 
+/* Área central com controles */
 #nowPlayingCenter {
     width: 40%;
     max-width: 700px;
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 
 #nowPlayingBar .content {
@@ -543,4 +555,182 @@ input:focus {
 .userDetails .container .message {
     color: #2ebd59;
     font-weight: 300;
+}
+
+/* ==========================================
+   RESPONSIVIDADE - Media Queries
+   ========================================== */
+
+/* Tablets e telas médias */
+@media screen and (max-width: 1024px) {
+    #mainViewContainer {
+        margin-left: 180px;
+        width: calc(100% - 180px);
+    }
+
+    #navBarContainer {
+        width: 180px;
+    }
+
+    .gridViewItem {
+        width: 45%;
+        margin-right: 10px;
+    }
+}
+
+/* Mobile - Telas pequenas */
+@media screen and (max-width: 768px) {
+    body {
+        min-width: 100%;
+    }
+
+    #navBarContainer {
+        width: 60px;
+        overflow: hidden;
+    }
+
+    #navBarContainer:hover {
+        width: 220px;
+    }
+
+    #mainViewContainer {
+        margin-left: 60px;
+        width: calc(100% - 60px);
+    }
+
+    #nowPlayingBarContainer {
+        min-width: 100%;
+    }
+
+    #nowPlayingBar {
+        flex-direction: column;
+        height: auto;
+    }
+
+    #nowPlayingLeft,
+    #nowPlayingCenter,
+    #nowPlayingRight {
+        width: 100%;
+        min-width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .gridViewItem {
+        width: 45%;
+        margin-right: 5px;
+        min-width: 120px;
+    }
+
+    .entityInfo .leftSection,
+    .entityInfo .rightSection {
+        width: 100%;
+        float: none;
+        padding: 10px;
+    }
+
+    .searchContainer .searchInput {
+        font-size: 32px;
+    }
+}
+
+/* Mobile muito pequeno */
+@media screen and (max-width: 480px) {
+    .gridViewItem {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .tracklistRow .trackInfo {
+        width: 60%;
+    }
+
+    .tracklistRow .trackDuration {
+        width: 15%;
+    }
+
+    .volumeBar {
+        width: 120px;
+    }
+
+    .volumeBar .progressBar {
+        width: 80px;
+    }
+}
+
+/* ==========================================
+   MELHORIAS DE PERFORMANCE
+   ========================================== */
+
+/* Suavizar transições */
+.controlButton,
+.navItemLink,
+.tracklistRow,
+.gridViewItem a,
+.button {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Otimizar rendering de imagens */
+img {
+    -webkit-backface-visibility: hidden;
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+/* Melhorar performance de scroll */
+#mainViewContainer {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ==========================================
+   UTILITÁRIOS
+   ========================================== */
+
+/* Classes auxiliares para desenvolvimento */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+/* Loading state */
+.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Acessibilidade */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus visível para acessibilidade */
+a:focus,
+button:focus,
+input:focus {
+    outline: 2px solid #2ebd59;
+    outline-offset: 2px;
 }

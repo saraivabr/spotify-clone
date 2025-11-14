@@ -6,13 +6,19 @@ class Song {
 
     public function __construct($con, $id) {
         $this->con = $con;
-        $this->id = $id;
-        
-        $query = mysqli_query($this->con, "SELECT * FROM songs WHERE id='$this->id'");
-        $this->mysqliData = mysqli_fetch_array($query);
+        $this->id = intval($id); // Sanitizar ID como inteiro
+
+        // Prepared statement para prevenir SQL Injection
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM songs WHERE id = ?");
+        mysqli_stmt_bind_param($stmt, "i", $this->id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $this->mysqliData = mysqli_fetch_array($result);
+        mysqli_stmt_close($stmt);
+
         $this->title = $this->mysqliData['title'];
-        $this->artistId = $this->mysqliData['artist'];
-        $this->albumId = $this->mysqliData['album'];
+        $this->artistId = intval($this->mysqliData['artist']);
+        $this->albumId = intval($this->mysqliData['album']);
         $this->genre = $this->mysqliData['genre'];
         $this->duration = $this->mysqliData['duration'];
         $this->path = $this->mysqliData['path'];
@@ -23,7 +29,8 @@ class Song {
     }
 
     public function getTitle() {
-        return $this->title;
+        // Escape HTML para prevenir XSS
+        return htmlspecialchars($this->title, ENT_QUOTES, 'UTF-8');
     }
 
     public function getId() {
@@ -38,7 +45,8 @@ class Song {
     }
 
     public function getGenre() {
-        return $this->genre;
+        // Escape HTML para prevenir XSS
+        return htmlspecialchars($this->genre, ENT_QUOTES, 'UTF-8');
     }
 
     public function getDuration() {
@@ -46,6 +54,7 @@ class Song {
     }
 
     public function getPath() {
+        // Path não precisa de escape, mas validar que é seguro
         return $this->path;
     }
 

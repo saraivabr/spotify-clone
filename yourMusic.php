@@ -8,7 +8,7 @@ include("includes/includedFiles.php");
         <h2>PLAYLISTS</h2>
 
         <div class="buttonItems">
-            <button class="button green" onclick="createPlaylist()">NEW PLAYLIST</button>
+            <button class="button green" onclick="createPlaylist()">NOVA PLAYLIST</button>
         </div>
 
 
@@ -22,7 +22,7 @@ include("includes/includedFiles.php");
         $playlistsQuery = mysqli_query($con, "SELECT * FROM playlists WHERE owner='$username'");
 
         if (mysqli_num_rows($playlistsQuery) == 0) {
-            echo "<span class='noResults'>You don't have any playlists yet</span>";
+            echo "<span class='noResults'>Você ainda não tem nenhuma playlist</span>";
         }
 
         while ($row = mysqli_fetch_array($playlistsQuery)) {

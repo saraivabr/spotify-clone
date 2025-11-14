@@ -12,8 +12,8 @@ else {
 
 <div class="searchContainer">
 
-    <h4>Search for an artist, album or song</h4>
-    <input type="text" class="searchInput" value="<?php echo $term; ?>" placeholder="Start typing..." onfocus="var val=this.value; this.value=''; this.value= val;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <h4>Busque por artista, álbum ou música</h4>
+    <input type="text" class="searchInput" value="<?php echo $term; ?>" placeholder="Comece a digitar..." onfocus="var val=this.value; this.value=''; this.value= val;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
 
 </div>
 
@@ -37,14 +37,14 @@ $(".searchInput").focus();
 <?php if($term == "") exit(); ?>
 
 <div class="tracklistContainer borderBottom">
-    <h2>SONGS</h2>
+    <h2>MÚSICAS</h2>
     <ul class="tracklist">
-        
-        <?php 
+
+        <?php
         $songsQuery = mysqli_query($con, "SELECT id FROM songs WHERE title LIKE '$term%' LIMIT 10");
 
         if (mysqli_num_rows($songsQuery) == 0) {
-            echo "<span class='noResults'>No songs found matching " . $term . "</span>";
+            echo "<span class='noResults'>Nenhuma música encontrada com " . $term . "</span>";
         }
 
         $songIdArray = array();
@@ -98,13 +98,13 @@ $(".searchInput").focus();
 </div>
 
 <div class="artistsContainer borderBottom">
-    <h2>ARTISTS</h2>
+    <h2>ARTISTAS</h2>
 
-    <?php 
+    <?php
     $artistsQuery = mysqli_query($con, "SELECT id FROM artists WHERE name LIKE '$term%' LIMIT 10");
-    
+
     if (mysqli_num_rows($artistsQuery) == 0) {
-        echo "<span class='noResults'>No artists found matching " . $term . "</span>";
+        echo "<span class='noResults'>Nenhum artista encontrado com " . $term . "</span>";
     }
 
     while ($row = mysqli_fetch_array($artistsQuery)) {
@@ -123,12 +123,12 @@ $(".searchInput").focus();
 </div>
 
 <div class="gridViewContainer">
-    <h2>ALBUMS</h2>
-    <?php 
+    <h2>ÁLBUNS</h2>
+    <?php
         $albumQuery = mysqli_query($con, "SELECT * FROM albums WHERE title LIKE '$term%' LIMIT 10");
 
         if (mysqli_num_rows($albumQuery) == 0) {
-            echo "<span class='noResults'>No albums found matching " . $term . "</span>";
+            echo "<span class='noResults'>Nenhum álbum encontrado com " . $term . "</span>";
         }
 
         while ($row = mysqli_fetch_array($albumQuery) ) {

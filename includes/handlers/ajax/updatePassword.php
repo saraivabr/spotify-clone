@@ -21,14 +21,25 @@ $oldPassword = $_POST['oldPassword'];
 $newPassword1 = $_POST['newPassword1'];
 $newPassword2 = $_POST['newPassword2'];
 
-$oldMd5 = md5($oldPassword);
+// Prepared statement para verificar senha atual
+$stmt = mysqli_prepare($con, "SELECT password FROM users WHERE username = ?");
+mysqli_stmt_bind_param($stmt, "s", $username);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
-$passwordCheck = mysqli_query($con, "SELECT * FROM users WHERE username='$username' AND password='$oldMd5'");
-
-if (mysqli_num_rows($passwordCheck) != 1) {
+if ($row = mysqli_fetch_assoc($result)) {
+    // Verificar senha com password_verify
+    if (!password_verify($oldPassword, $row['password'])) {
+        mysqli_stmt_close($stmt);
+        echo "Password is incorrect";
+        exit();
+    }
+} else {
+    mysqli_stmt_close($stmt);
     echo "Password is incorrect";
     exit();
 }
+mysqli_stmt_close($stmt);
 
 if ($newPassword1 != $newPassword2) {
     echo "Your new passwords do not match";
@@ -41,13 +52,19 @@ if (preg_match('/[^A-Za-z0-9]/', $newPassword1)) {
 }
 
 if (strlen($newPassword1) > 30 || strlen($newPassword1) < 5) {
-    echo "Your username must be between 5 and 30 characters";
+    echo "Your password must be between 5 and 30 characters";
     exit();
 }
 
-$newMd5 = md5($newPassword1);
+// Usar password_hash em vez de MD5
+$hashedPassword = password_hash($newPassword1, PASSWORD_DEFAULT);
 
-$query = mysqli_query($con, "UPDATE users SET password='$newMd5' WHERE username='$username'");
+// Prepared statement para atualizar senha
+$stmt = mysqli_prepare($con, "UPDATE users SET password = ? WHERE username = ?");
+mysqli_stmt_bind_param($stmt, "ss", $hashedPassword, $username);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_close($stmt);
+
 echo "Update password successful";
 
 ?>

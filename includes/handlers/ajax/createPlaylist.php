@@ -1,16 +1,21 @@
-<?php 
+<?php
 include("../../config.php");
 
 if (isset($_POST['name']) && isset($_POST['username'])) {
 
-    $name = $_POST['name'];
-    $username = $_POST['username'];
+    // Sanitizar entradas
+    $name = trim($_POST['name']);
+    $username = trim($_POST['username']);
     $date = date("Y-m-d");
 
-    $query = mysqli_query($con, "INSERT INTO playlists VALUES('', '$name', '$username', '$date')");
+    // Prepared statement para prevenir SQL Injection
+    $stmt = mysqli_prepare($con, "INSERT INTO playlists VALUES('', ?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, "sss", $name, $username, $date);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 }
 else {
-    echo "Name or username paramaters not passed into file";
+    echo "Name or username parameters not passed into file";
 }
 
 ?>

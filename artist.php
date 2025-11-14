@@ -19,7 +19,7 @@ $artist = new Artist($con, $artistId);
             <h1 class="artistName"><?php echo $artist->getName(); ?></h1>
 
             <div class="headerButtons">
-                <button class="button green" onclick="playFirstSong()">PLAY</button>
+                <button class="button green" onclick="playFirstSong()">REPRODUZIR</button>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@ $artist = new Artist($con, $artistId);
 </div>
 
 <div class="tracklistContainer borderBottom">
-    <h2>SONGS</h2>
+    <h2>MÚSICAS</h2>
     <ul class="tracklist">
         
         <?php 
@@ -79,7 +79,7 @@ $artist = new Artist($con, $artistId);
 </div>
 
 <div class="gridViewContainer">
-    <h2>ALBUMS</h2>
+    <h2>ÁLBUNS</h2>
     <?php 
         $albumQuery = mysqli_query($con, "SELECT * FROM albums WHERE artist='$artistId'");
         while ($row = mysqli_fetch_array($albumQuery)) {

@@ -7,18 +7,18 @@
         <div class="group">
             <div class="navItem">
                 <!-- USE THIS as model to create links that dynamically load -->
-                <span role='link' tabindex='0' onclick="openPage('search.php')" class="navItemLink">Search 
-                    <img src="assets/images/icons/search.png" alt="Search" class="icon">
+                <span role='link' tabindex='0' onclick="openPage('search.php')" class="navItemLink">Buscar
+                    <img src="assets/images/icons/search.png" alt="Buscar" class="icon">
                 </span>
             </div>
         </div>
-            
+
             <div class="group">
                 <div class="navItem">
-                    <span role="link" tabindex="0" onclick="openPage('browse.php')" class="navItemLink">Browse</span>
+                    <span role="link" tabindex="0" onclick="openPage('browse.php')" class="navItemLink">Explorar</span>
                 </div>
                 <div class="navItem">
-                    <span role="link" tabindex="0" onclick="openPage('yourMusic.php')" class="navItemLink">Your Music</span>
+                    <span role="link" tabindex="0" onclick="openPage('yourMusic.php')" class="navItemLink">Sua Música</span>
                 </div>
                 <div class="navItem">
                     <span role="link" tabindex="0" onclick="openPage('settings.php')"  class="navItemLink">
@@ -26,7 +26,7 @@
                         if(isset($userLoggedIn) && $userLoggedIn != null) {
                             echo $userLoggedIn->getFirstAndLastName();
                         } else {
-                            echo "Profile";
+                            echo "Perfil";
                         }
                         ?>
                     </span>

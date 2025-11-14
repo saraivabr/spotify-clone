@@ -11,7 +11,7 @@ include("includes/includedFiles.php");
                 if(isset($userLoggedIn) && $userLoggedIn != null) {
                     echo $userLoggedIn->getFirstAndLastName();
                 } else {
-                    echo "User Settings";
+                    echo "Configurações do Usuário";
                 }
                 ?>
             </h1>
@@ -19,7 +19,7 @@ include("includes/includedFiles.php");
     </div>
 
     <div class="buttonItems">
-        <button class="button" onclick="openPage('updateDetails.php')">USER DETAILS</button>
-        <button class="button" onclick="logout()">LOGOUT</button>
+        <button class="button" onclick="openPage('updateDetails.php')">MEUS DADOS</button>
+        <button class="button" onclick="logout()">SAIR</button>
     </div>
 </div>

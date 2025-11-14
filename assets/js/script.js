@@ -1,15 +1,28 @@
-var currentPlaylist = [];
-var shufflePlaylist = [];
-var tempPlaylist = [];
-var audioElement;
-var mouseDown = false;
-var currentIndex = 0;
-var repeat = false;
-var shuffle = false;
-var userLoggedIn;
-var timer; //for search.php 
+/**
+ * ==========================================
+ * SPOTIFY CLONE - Script Principal
+ * ==========================================
+ */
 
-//make add to playlist bar disapper on click
+// ==========================================
+// VARIÁVEIS GLOBAIS
+// ==========================================
+var currentPlaylist = [];      // Playlist atual sendo reproduzida
+var shufflePlaylist = [];      // Playlist embaralhada
+var tempPlaylist = [];         // Playlist temporária
+var audioElement;              // Elemento de áudio HTML5
+var mouseDown = false;         // Estado do mouse para drag
+var currentIndex = 0;          // Índice da música atual
+var repeat = false;            // Estado de repetição
+var shuffle = false;           // Estado de embaralhamento
+var userLoggedIn;             // Usuário logado
+var timer;                    // Timer para search.php
+
+// ==========================================
+// EVENT LISTENERS
+// ==========================================
+
+// Esconder menu de opções ao clicar fora
 $(document).click(function(click) {
 	var target = $(click.target);
 
@@ -18,20 +31,31 @@ $(document).click(function(click) {
 	}
 });
 
-//make add to playlist bar disapper on scroll
+// Esconder menu de opções ao rolar a página
 $(window).scroll(function() {
 	hideOptionsMenu();
 });
 
+// Adicionar música à playlist selecionada
 $(document).on("change", "select.playlist", function() {
 	var select = $(this);
-	//select.playlist class from Playlist::getPlaylistsDropdown
 	var playlistId = $(select).val();
 	var songId = $(select).prev(".songId").val();
 
-	$.post("includes/handlers/ajax/addToPlaylist.php", { playlistId: playlistId, songId: songId })
-	.done(function(error) {
+	// Validação básica
+	if (!playlistId || !songId) {
+		console.error("ID da playlist ou música inválido");
+		return;
+	}
 
+	// Mostrar estado de loading
+	select.addClass('loading');
+
+	$.post("includes/handlers/ajax/addToPlaylist.php", {
+		playlistId: playlistId,
+		songId: songId
+	})
+	.done(function(error) {
 		if (error != "") {
 			alert(error);
 			return;
@@ -39,23 +63,54 @@ $(document).on("change", "select.playlist", function() {
 
 		hideOptionsMenu();
 		select.val("");
+	})
+	.fail(function(xhr, status, error) {
+		console.error("Erro ao adicionar música:", error);
+		alert("Erro ao adicionar música à playlist. Tente novamente.");
+	})
+	.always(function() {
+		select.removeClass('loading');
 	});
 }); 
 
+// ==========================================
+// FUNÇÕES DE NAVEGAÇÃO
+// ==========================================
+
+/**
+ * Abrir página dinamicamente via AJAX
+ * @param {string} url - URL da página a ser carregada
+ */
 function openPage(url) {
-	//if user jumps to another page before search is complete, stop the search settimeout timer
+	// Cancelar timer de busca se ativo
 	if (timer != null) {
 		clearTimeout(timer);
 	}
-	//add question mark to url if doesn't have one to make sure we change pages dynamically
+
+	// Adicionar '?' à URL se não existir
 	if (url.indexOf("?") == -1) {
 		url = url + "?";
 	}
-	
+
+	// Codificar URL e adicionar usuário logado
 	var encodedUrl = encodeURI(url + "&userLoggedIn=" + userLoggedIn);
-	$("#mainContent").load(encodedUrl);
+
+	// Mostrar loading state
+	$("#mainContent").addClass('loading');
+
+	// Carregar conteúdo via AJAX
+	$("#mainContent").load(encodedUrl, function(response, status, xhr) {
+		if (status == "error") {
+			console.error("Erro ao carregar página:", xhr.status, xhr.statusText);
+			$("#mainContent").html("<p class='error'>Erro ao carregar conteúdo. Tente novamente.</p>");
+		}
+		$("#mainContent").removeClass('loading');
+	});
+
+	// Rolar para o topo
 	$("body").scrollTop(0);
-	//changes url upon click to improve user experience (make them think the page changed)
+
+	// Atualizar URL do navegador (SPA behavior)
 	history.pushState(null, null, url);
 }
 
