@@ -22,9 +22,9 @@ $owner = new User($con, $playlist->getOwner());
 
     <div class="rightSection">
         <h2><?php echo $playlist->getName();?> </h2>
-        <p>By <?php echo $playlist->getOwner(); ?></p>
-        <p><?php echo $playlist->getNumberOfSongs(); ?> songs</p>
-        <button class="button" onclick="deletePlaylist('<?php echo $playlistId; ?>')">DELETE PLAYLIST</button>
+        <p>Por <?php echo $playlist->getOwner(); ?></p>
+        <p><?php echo $playlist->getNumberOfSongs(); ?> músicas</p>
+        <button class="button" onclick="deletePlaylist('<?php echo $playlistId; ?>')">EXCLUIR PLAYLIST</button>
     </div>
 </div>
 
@@ -84,6 +84,6 @@ $owner = new User($con, $playlist->getOwner());
         echo PLaylist::getPlaylistsDropdown($con, $userLoggedIn->getUsername());
     }
     ?>
-    <div class="item" onclick="removeFromPlaylist(this, '<?php echo $playlistId; ?>')">Remove from Playlist</div>
+    <div class="item" onclick="removeFromPlaylist(this, '<?php echo $playlistId; ?>')">Remover da Playlist</div>
 </nav>
 
