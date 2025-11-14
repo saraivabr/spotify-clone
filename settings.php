@@ -6,7 +6,15 @@ include("includes/includedFiles.php");
 
     <div class="centerSection">
         <div class="userInfo">
-            <h1><?php echo $userLoggedIn->getFirstAndLastName(); ?></h1>
+            <h1>
+                <?php
+                if(isset($userLoggedIn) && $userLoggedIn != null) {
+                    echo $userLoggedIn->getFirstAndLastName();
+                } else {
+                    echo "User Settings";
+                }
+                ?>
+            </h1>
         </div>
     </div>
 

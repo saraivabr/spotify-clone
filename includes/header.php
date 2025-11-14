@@ -14,17 +14,20 @@ if(isset($_SESSION['userLoggedIn'])) {
 }
 else {
     header("Location: register.php");
+    exit();
 }
 
 ?>
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Spotify</title>
+    <meta name="description" content="Spotify Brasil - Ouça milhões de músicas e podcasts gratuitamente. A melhor experiência musical do Brasil!">
+    <meta name="keywords" content="spotify, música, brasil, streaming, playlist, podcasts">
+    <title>🎵 Spotify Brasil - Sua Música, Seu Momento</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="assets/js/script.js"></script>

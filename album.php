@@ -75,5 +75,9 @@ $artistId = $artist->getId();
 <nav class="optionsMenu">
     <!-- contains song currently selected in Add to Playlist -->
     <input type="hidden" class="songId">
-    <?php echo Playlist::getPlaylistsDropdown($con, $userLoggedIn->getUsername()); ?>
+    <?php
+    if(isset($userLoggedIn) && $userLoggedIn != null) {
+        echo Playlist::getPlaylistsDropdown($con, $userLoggedIn->getUsername());
+    }
+    ?>
 </nav>

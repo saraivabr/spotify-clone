@@ -12,9 +12,12 @@ include("includes/includedFiles.php");
         </div>
 
 
-        <?php 
-
-        $username = $userLoggedIn->getUsername();
+        <?php
+        if(isset($userLoggedIn) && $userLoggedIn != null) {
+            $username = $userLoggedIn->getUsername();
+        } else {
+            $username = "";
+        }
 
         $playlistsQuery = mysqli_query($con, "SELECT * FROM playlists WHERE owner='$username'");
 
