@@ -2,7 +2,8 @@
     session_start();
     ob_start();
 
-    $timezone = date_default_timezone_set("America/Toronto");
+    $timezone = date_default_timezone_set("America/Sao_Paulo");
+    setlocale(LC_ALL, 'pt_BR.utf8', 'pt_BR', 'Portuguese_Brazil');
 
     // Parse DATABASE_URL from Scalingo
     $database_url = getenv('SCALINGO_MYSQL_URL') ?: getenv('DATABASE_URL');
@@ -27,6 +28,17 @@
 
     if (mysqli_connect_errno()) {
         echo "Failed to connect: " . mysqli_connect_errno();
+    }
+
+    // Função para formatar datas no padrão brasileiro (DD/MM/YYYY)
+    function formatDateBR($date, $includeTime = false) {
+        if (empty($date)) return '';
+
+        $timestamp = strtotime($date);
+        if ($includeTime) {
+            return date('d/m/Y H:i', $timestamp);
+        }
+        return date('d/m/Y', $timestamp);
     }
 
 ?>

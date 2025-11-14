@@ -2,18 +2,18 @@
 
 class Constants {
 
-    public static $passwordsDoNotMatch = "Your passwords don't match";
-    public static $passwordNotAlphanumeric = "Your password can only contain numbers and letters";
-    public static $passwordCharacters = "Your password must be between 5 and 30 characters";
-    public static $emailInvalid = "Email is invalid";
-    public static $emailsDoNotMatch = "Your emails don't match" ;
-    public static $emailTaken =  "That email is already in use";   
-    public static $lastNameCharacters = "Your last name must be between 2 and 25 characters";
-    public static $firstNameCharacters =  "Your first name must be between 2 and 25 characters";
-    public static $usernameCharacters =  "Your username must be between 5 and 25 characters";   
-    public static $usernameTaken =  "That username is already in use";  
+    public static $passwordsDoNotMatch = "As senhas não coincidem";
+    public static $passwordNotAlphanumeric = "Sua senha só pode conter números e letras";
+    public static $passwordCharacters = "Sua senha deve ter entre 5 e 30 caracteres";
+    public static $emailInvalid = "Email inválido";
+    public static $emailsDoNotMatch = "Os emails não coincidem" ;
+    public static $emailTaken =  "Este email já está em uso";
+    public static $lastNameCharacters = "Seu sobrenome deve ter entre 2 e 25 caracteres (acentos permitidos: á, é, í, ó, ú, ã, õ, ç)";
+    public static $firstNameCharacters =  "Seu nome deve ter entre 2 e 25 caracteres (acentos permitidos: á, é, í, ó, ú, ã, õ, ç)";
+    public static $usernameCharacters =  "Seu usuário deve ter entre 5 e 25 caracteres";
+    public static $usernameTaken =  "Este nome de usuário já está em uso";
 
-    public static $loginFailed =  "Incorrect username or password";   
+    public static $loginFailed =  "Usuário ou senha incorretos";   
 }
 
 

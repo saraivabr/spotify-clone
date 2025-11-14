@@ -17,11 +17,13 @@ function getInputValue($name) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register to Spotify</title>
+    <meta name="description" content="Cadastre-se gratuitamente no Spotify Brasil e descubra milhões de músicas. Crie suas playlists e curta música de qualidade!">
+    <meta name="keywords" content="spotify brasil, música online, streaming, cadastro gratuito">
+    <title>Cadastre-se no Spotify Brasil 🎵</title>
 
     <link rel="stylesheet" href="assets/css/register.css">
 
@@ -53,77 +55,78 @@ function getInputValue($name) {
     <div id="loginContainer">
         <div id="inputContainer">
             <form id="loginForm" action="register.php" method="POST">
-                <h2>Login to your account</h2>
+                <h2>Entre na sua conta</h2>
                 <p>
                 <?php echo $account->getError(Constants::$loginFailed); ?>
-                    <label for="loginUsername">Username:</label>
+                    <label for="loginUsername">Usuário:</label>
                     <input id="loginUsername" name="loginUsername" type="text" placeholder="BartSimpson" value="<?php getInputValue('loginUsername'); ?>" required>
-                </p> 
-                <p> 
-                    <label for="loginPassword">Password:</label>
-                    <input id="loginPassword" name="loginPassword" type="password" placeholder="Your password" required> 
                 </p>
-                <button type="submit" name="loginButton">LOG IN</button>
+                <p>
+                    <label for="loginPassword">Senha:</label>
+                    <input id="loginPassword" name="loginPassword" type="password" placeholder="Sua senha" required>
+                </p>
+                <button type="submit" name="loginButton">ENTRAR</button>
 
                 <div class="hasAccountText">
-                    <span id="hideLogin">Don't have an account yet? Sign up here</span>
+                    <span id="hideLogin">Não tem uma conta? Cadastre-se aqui</span>
                 </div>
             </form>
             
             <form id="registerForm" action="register.php" method="POST">
-                <h2>Create your free account</h2>
-                <p> 
+                <h2>Crie sua conta grátis</h2>
+                <p>
                     <?php echo $account->getError(Constants::$usernameCharacters); ?>
                     <?php echo $account->getError(Constants::$usernameTaken); ?>
-                    <label for="username">Username:</label>
+                    <label for="username">Usuário:</label>
                     <input id="username" name="username" type="text" placeholder="BartSimpson" value="<?php getInputValue('username');?>" required>
-                </p> 
+                </p>
                 <p>
                     <?php echo $account->getError(Constants::$firstNameCharacters); ?>
-                    <label for="firstName">First Name:</label>
+                    <label for="firstName">Nome:</label>
                     <input id="firstName" name="firstName" type="text" placeholder="Bart" value="<?php getInputValue('firstName'); ?>" required>
-                </p> 
+                </p>
                 <p>
                     <?php echo $account->getError(Constants::$lastNameCharacters); ?>
-                    <label for="lastName">Last Name:</label>
+                    <label for="lastName">Sobrenome:</label>
                     <input id="lastName" name="lastName" type="text" placeholder="Simpson" value="<?php getInputValue('lastName'); ?>" required>
-                </p> 
+                </p>
                 <p>
                     <?php echo $account->getError(Constants::$emailsDoNotMatch); ?>
                     <?php echo $account->getError(Constants::$emailInvalid); ?>
                     <?php echo $account->getError(Constants::$emailTaken); ?>
                     <label for="email">Email:</label>
                     <input id="email" name="email" type="email" placeholder="bart@gmail.com" value="<?php getInputValue('email'); ?>" required>
-                </p> 
+                </p>
                 <p>
-                    <label for="email2">Confirm email:</label>
+                    <label for="email2">Confirme seu email:</label>
                     <input id="email2" name="email2" type="email" placeholder="bart@gmail.com" value="<?php getInputValue('email2'); ?>" required>
-                </p>  
-                <p> 
+                </p>
+                <p>
                     <?php echo $account->getError(Constants::$passwordsDoNotMatch); ?>
                     <?php echo $account->getError(Constants::$passwordNotAlphanumeric); ?>
                     <?php echo $account->getError(Constants::$passwordCharacters); ?>
-                    <label for="password">Password:</label>
-                    <input id="password" name="password" type="password" placeholder="Your password" required> 
+                    <label for="password">Senha:</label>
+                    <input id="password" name="password" type="password" placeholder="Sua senha" required>
                 </p>
-                <p> 
-                    <label for="password2">Confirm password:</label>
-                    <input id="password2" name="password2" type="password" placeholder="Your password" required> 
+                <p>
+                    <label for="password2">Confirme sua senha:</label>
+                    <input id="password2" name="password2" type="password" placeholder="Sua senha" required>
                 </p>
-                <button type="submit" name="registerButton">SIGN UP</button>
+                <button type="submit" name="registerButton">CADASTRAR</button>
 
                 <div class="hasAccountText">
-                    <span id="hideRegister">Already have an account? Log in here</span>
+                    <span id="hideRegister">Já tem uma conta? Entre aqui</span>
                 </div>
             </form>
         </div>
         <div id="loginText">
-            <h1>Get great music, right now</h1>
-            <h2>Listen to loads of songs for free</h2>
+            <h1>🇧🇷 Bem-vindo ao Spotify Brasil!</h1>
+            <h2>Milhões de músicas esperando por você 🎶</h2>
             <ul>
-                <li>Discover music you'll fall in love with</li>
-                <li>Create your own playlists</li>
-                <li>Follow artists to keep up to date</li>
+                <li>🎵 Descubra músicas incríveis do Brasil e do mundo</li>
+                <li>📱 Crie suas playlists personalizadas</li>
+                <li>⭐ Siga seus artistas favoritos</li>
+                <li>🎧 Totalmente grátis para começar</li>
             </ul>
         </div>
     </div>
