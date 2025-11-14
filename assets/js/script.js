@@ -158,13 +158,13 @@ function removeFromPlaylist(button, playlistId) {
 }	
 
 function createPlaylist() {
-	var popup = prompt("Please enter the name of your playlist");
+	var popup = prompt("Digite o nome da sua playlist");
 
 	if (popup != null) {
-		
+
 		$.post("includes/handlers/ajax/createPlaylist.php", { name: popup, username: userLoggedIn })
 		.done(function(error) {
-			
+
 			if (error != "") {
 				alert(error);
 				return;
@@ -176,7 +176,7 @@ function createPlaylist() {
 }
 
 function deletePlaylist(playlistId) {
-	var prompt = confirm("Are you sure you want to delete this playlist?");
+	var prompt = confirm("Tem certeza que deseja excluir esta playlist?");
 
 	if (prompt == true) {
 

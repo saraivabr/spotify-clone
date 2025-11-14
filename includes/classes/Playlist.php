@@ -66,7 +66,7 @@ class Playlist {
 
     public static function getPlaylistsDropdown($con, $username) {
         $dropdown = '<select class="item playlist">
-                        <option value="">Add to Playlist</option>';
+                        <option value="">Adicionar à Playlist</option>';
 
         // Prepared statement para prevenir SQL Injection
         $stmt = mysqli_prepare($con, "SELECT id, name FROM playlists WHERE owner = ?");

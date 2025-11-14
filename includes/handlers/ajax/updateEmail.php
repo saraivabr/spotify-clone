@@ -2,7 +2,7 @@
 include("../../config.php");
 
 if (!isset($_POST['username'])) {
-    echo "ERROR: Could not set username";
+    echo "ERRO: Não foi possível definir o usuário";
     exit();
 }
 
@@ -12,7 +12,7 @@ if (isset($_POST['email']) && ($_POST['email']) != "") {
     $email = trim($_POST['email']);
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Email is invalid";
+        echo "Email inválido";
         exit();
     }
 
@@ -24,7 +24,7 @@ if (isset($_POST['email']) && ($_POST['email']) != "") {
 
     if (mysqli_stmt_num_rows($stmt) > 0) {
         mysqli_stmt_close($stmt);
-        echo "Email is already in use";
+        echo "Este email já está em uso";
         exit();
     }
     mysqli_stmt_close($stmt);
@@ -35,11 +35,11 @@ if (isset($_POST['email']) && ($_POST['email']) != "") {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    echo "Update successful";
+    echo "Email atualizado com sucesso";
 
 }
 else {
-    echo "You must provide a username";
+    echo "Você precisa fornecer um nome de usuário";
 }
 
 

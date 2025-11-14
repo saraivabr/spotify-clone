@@ -2,17 +2,17 @@
 include("../../config.php");
 
 if (!isset($_POST['username'])) {
-    echo "ERROR: Could not set username";
+    echo "ERRO: Não foi possível definir o usuário";
     exit();
 }
 
 if (!isset($_POST['oldPassword']) || !isset($_POST['newPassword1']) || !isset($_POST['newPassword2'])) {
-    echo "Not all passwords have been set";
+    echo "Nem todas as senhas foram definidas";
     exit();
 }
 
 if ($_POST['oldPassword'] == "" || $_POST['newPassword1'] == "" || $_POST['newPassword2'] == "") {
-    echo "Please fill in all fields";
+    echo "Por favor, preencha todos os campos";
     exit();
 }
 
@@ -31,28 +31,28 @@ if ($row = mysqli_fetch_assoc($result)) {
     // Verificar senha com password_verify
     if (!password_verify($oldPassword, $row['password'])) {
         mysqli_stmt_close($stmt);
-        echo "Password is incorrect";
+        echo "Senha incorreta";
         exit();
     }
 } else {
     mysqli_stmt_close($stmt);
-    echo "Password is incorrect";
+    echo "Senha incorreta";
     exit();
 }
 mysqli_stmt_close($stmt);
 
 if ($newPassword1 != $newPassword2) {
-    echo "Your new passwords do not match";
+    echo "As novas senhas não coincidem";
     exit();
 }
 
 if (preg_match('/[^A-Za-z0-9]/', $newPassword1)) {
-    echo "Your password must only contain letters and/or numbers";
+    echo "Sua senha só pode conter letras e/ou números";
     exit();
 }
 
 if (strlen($newPassword1) > 30 || strlen($newPassword1) < 5) {
-    echo "Your password must be between 5 and 30 characters";
+    echo "Sua senha deve ter entre 5 e 30 caracteres";
     exit();
 }
 
@@ -65,6 +65,6 @@ mysqli_stmt_bind_param($stmt, "ss", $hashedPassword, $username);
 mysqli_stmt_execute($stmt);
 mysqli_stmt_close($stmt);
 
-echo "Update password successful";
+echo "Senha atualizada com sucesso";
 
 ?>

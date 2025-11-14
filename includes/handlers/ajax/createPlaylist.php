@@ -15,7 +15,7 @@ if (isset($_POST['name']) && isset($_POST['username'])) {
     mysqli_stmt_close($stmt);
 }
 else {
-    echo "Name or username parameters not passed into file";
+    echo "Parâmetros de nome ou usuário não foram enviados";
 }
 
 ?>
